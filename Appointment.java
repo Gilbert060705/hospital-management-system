@@ -126,9 +126,17 @@ public class Appointment {
         this.notes = notes;
     }
 
-    public String getDetails() {
+    public String getDetailsForDoctor() {
         return "Appointment with Patient ID: " + patient.getID() +
                 " on " + date + " from " + startClock + " to " + finishClock;
+    }
+
+    public void getDetailsForPatient() {
+        Doctor detailDoctor = this.doctor;
+        System.out.println("Name of doctor : " + detailDoctor.getName());
+        System.out.println("Date : " + this.date);
+        System.out.println("From " + startClock + " to " + finishClock);
+        System.out.println("Appointment Status : " + this.status);
     }
 
 }

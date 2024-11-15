@@ -24,19 +24,8 @@ public class FreeAppointment {
         this.date = date;
         this.writeToCSV = write;
         int ID = Integer.parseInt(doctor.getID());
-        if (ID % 2000 == 1) {
-            this.filename = "doctor1Free.csv";
-        } else if (ID % 2000 == 2) {
-            this.filename = "doctor2Free.csv";
-        } else if (ID % 2000 == 3) {
-            this.filename = "doctor3Free.csv";
-        } else if (ID % 2000 == 4) {
-            this.filename = "doctor4Free.csv";
-        } else if (ID % 2000 == 5) {
-            this.filename = "doctor5Free.csv";
-        } else if (ID % 2000 == 6) {
-            this.filename = "doctor6Free.csv";
-        }
+        String idS = Integer.toString(ID % 2000);
+        this.filename = "doctor" + idS + "Free.csv";
 
         if (this.writeToCSV) {
             addToCSV();

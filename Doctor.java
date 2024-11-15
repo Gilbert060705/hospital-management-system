@@ -327,7 +327,7 @@ public class Doctor {
         System.out.println("Pending Appointments:");
         int index = 1;
         for (Appointment appointment : pendingAppointments) {
-            System.out.println(index + ". " + appointment.getDetails());
+            System.out.println(index + ". " + appointment.getDetailsForDoctor());
             index++;
         }
 
@@ -512,6 +512,14 @@ public class Doctor {
 
         // Optionally, update the appointment in the CSV or data storage
         updateAppointmentInCSV(selectedAppointment);
+    }
+
+    public ArrayList<FreeAppointment> getAvailableSlots() {
+        return this.availableSlots;
+    }
+
+    public void updateFreeAppointments(int i) {
+        this.availableSlots.remove(i);
     }
 
 }

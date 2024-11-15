@@ -109,7 +109,40 @@ public class LoginPage {
                 } else if (option == 8) {
                     login = false;
                 }
+            }
+        } else if (role == "Patient") {
+            Patient logIn = new Patient(id);
+            System.out.println("Welcome Back, " + logIn.getName());
+            int option = -1;
+            while (login) {
+                System.out.println("1. View Medical Record");
+                System.out.println("2. Update Personal Information");
+                System.out.println("3. View Available Appointment Slots");
+                System.out.println("4. Schedule an Appointment");
+                System.out.println("5. Reschedule an Appointment");
+                System.out.println("6. Cancel an Appointmet");
+                System.out.println("7. View Scheduled Appointment");
+                System.out.println("8. View Past Appointments Outcome Records");
+                System.out.println("9. Logout");
 
+                option = s.nextInt();
+                if (option == 1) {
+                    logIn.displayForPatient();
+                } else if (option == 2) {
+                    logIn.updateDetails();();
+                } else if (option == 3) {
+                    logIn.viewAvailableSlots();
+                } else if (option == 4) {
+                    logIn.scheduleAppointment();
+                } else if (option == 5) {
+                    logIn.reScheduleAppointment();
+                } else if (option == 6) {
+                    logIn.viewAcceptedAppointments();
+                } else if (option == 7) {
+                    logIn.updateRecords();
+                } else if (option == 8) {
+                    login = false;
+                }
             }
         }
     }
