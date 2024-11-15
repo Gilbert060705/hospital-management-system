@@ -27,6 +27,7 @@ public class Patient {
     public Patient(String PatientID) {
         this.PatientID = PatientID;
         this.fileName = "patients.csv";
+        retrieveDetails();
     }
 
     public Patient(String name, String DateOfBirth, String gender, String phoneNum, String email,
@@ -57,46 +58,90 @@ public class Patient {
         return stringArray;
     }
 
-    public Object retrieveDetails(int choice) {
+    public void retrieveDetails() {
         ArrayList<String> stringArray = (ArrayList<String>) read(fileName);
         for (String st : stringArray) {
             StringTokenizer star = new StringTokenizer(st, SEPARATOR);
-            String checkid = star.nextToken().trim();
-            if (checkid == String.valueOf(this.PatientID)) {
-                System.out.println(checkid + String.valueOf(this.PatientID));
+
+            // Skip empty lines
+            if (!star.hasMoreTokens()) {
                 continue;
             }
-            String name = star.nextToken().trim();
-            String password = star.nextToken().trim();
-            String dateOfBirth = star.nextToken().trim();
-            String gender = star.nextToken().trim();
-            String phone = star.nextToken().trim();
-            String email = star.nextToken().trim();
-            String bloodType = star.nextToken().trim();
-            String pastDiagnoses = star.nextToken().trim();
-            String treatments = star.nextToken().trim();
 
-            if (choice == 1) {
-                return name;
-            } else if (choice == 2) {
-                return dateOfBirth;
-            } else if (choice == 3) {
-                return gender;
-            } else if (choice == 4) {
-                return phone;
-            } else if (choice == 5) {
-                return email;
-            } else if (choice == 6) {
-                return bloodType;
-            } else if (choice == 7) {
-                return pastDiagnoses;
-            } else if (choice == 8) {
-                return treatments;
-            } else if (choice == 9) {
-                return password;
+            String checkid = star.nextToken().trim();
+
+            // Process only the line that matches this PatientID
+            if (checkid.equals(this.PatientID)) {
+                // Ensure there are enough tokens before proceeding
+                if (!star.hasMoreTokens()) {
+                    System.out.println("Incomplete data for patient ID: " + this.PatientID);
+                    continue;
+                }
+                String password = star.nextToken().trim();
+
+                if (!star.hasMoreTokens()) {
+                    System.out.println("Incomplete data for patient ID: " + this.PatientID);
+                    continue;
+                }
+                String name = star.nextToken().trim();
+
+                if (!star.hasMoreTokens()) {
+                    System.out.println("Incomplete data for patient ID: " + this.PatientID);
+                    continue;
+                }
+                String dateOfBirth = star.nextToken().trim();
+
+                if (!star.hasMoreTokens()) {
+                    System.out.println("Incomplete data for patient ID: " + this.PatientID);
+                    continue;
+                }
+                String gender = star.nextToken().trim();
+
+                if (!star.hasMoreTokens()) {
+                    System.out.println("Incomplete data for patient ID: " + this.PatientID);
+                    continue;
+                }
+                String phone = star.nextToken().trim();
+
+                if (!star.hasMoreTokens()) {
+                    System.out.println("Incomplete data for patient ID: " + this.PatientID);
+                    continue;
+                }
+                String email = star.nextToken().trim();
+
+                if (!star.hasMoreTokens()) {
+                    System.out.println("Incomplete data for patient ID: " + this.PatientID);
+                    continue;
+                }
+                String bloodType = star.nextToken().trim();
+
+                if (!star.hasMoreTokens()) {
+                    System.out.println("Incomplete data for patient ID: " + this.PatientID);
+                    continue;
+                }
+                String pastDiagnoses = star.nextToken().trim();
+
+                if (!star.hasMoreTokens()) {
+                    System.out.println("Incomplete data for patient ID: " + this.PatientID);
+                    continue;
+                }
+                String treatments = star.nextToken().trim();
+
+                // Assign the retrieved values to the object's fields
+                this.name = name;
+                this.password = password;
+                this.DateOfBirth = dateOfBirth;
+                this.gender = gender;
+                this.phoneNum = phone;
+                this.emailAdress = email;
+                this.BloodType = bloodType;
+                this.pastDiagnoses = pastDiagnoses;
+                this.treatments = treatments;
+
+                // Since we've found and processed the patient, we can break out of the loop
+                break;
             }
         }
-        return null; // return null if no details are found
     }
 
     public static void write(String fileName, List data) throws IOException {
@@ -137,21 +182,6 @@ public class Patient {
         try (PrintWriter out = new PrintWriter(new FileWriter(fileName, true))) { // true for append mode
             out.println(data); // Write each entry on a new line
         }
-    }
-
-    public void completeDetails() {
-        this.name = (String) retrieveDetails(1);
-        this.password = (String) retrieveDetails(9);
-        this.DateOfBirth = (String) retrieveDetails(2);
-        this.gender = (String) retrieveDetails(3);
-        this.phoneNum = (String) retrieveDetails(4);
-        this.emailAdress = (String) retrieveDetails(5);
-        this.BloodType = (String) retrieveDetails(6);
-        this.pastDiagnoses = (String) retrieveDetails(7);
-        this.treatments = (String) retrieveDetails(8);
-
-        System.out.println(this.name + this.DateOfBirth + this.BloodType + this.gender + this.phoneNum
-                + this.emailAdress + this.pastDiagnoses + this.treatments);
     }
 
     public void updatePatientPhoneNumber(String PatientID, String newPhoneNumber) {
@@ -287,7 +317,7 @@ public class Patient {
 
         System.out.println("List of Past Diagnoses : ");
         int start = 1;
-        String[] listOfDiagnoses = this.pastDiagnoses.split(" ");
+        String[] listOfDiagnoses = this.pastDiagnoses.split(";");
         for (String x : listOfDiagnoses) {
             System.out.println(start + ". " + x);
             start++;
@@ -295,7 +325,7 @@ public class Patient {
 
         System.out.println("List of Treatments Done : ");
         start = 1;
-        String[] listOfTreatments = this.treatments.split(" ");
+        String[] listOfTreatments = this.treatments.split(";");
         for (String x : listOfTreatments) {
             System.out.println(start + ". " + x);
             start++;
@@ -333,7 +363,7 @@ public class Patient {
 
                     // Append the new treatment
                     if (!treatments.isEmpty()) {
-                        treatments += ":" + append;
+                        treatments += ";" + append;
                     } else {
                         treatments = append;
                     }

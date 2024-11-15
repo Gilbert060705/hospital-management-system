@@ -49,6 +49,7 @@ public class LoginPage {
         int loginValid = 0;
         while (loginValid == 0) {
             System.out.print("Enter HospitalID : ");
+            s.nextLine();
             id = s.nextLine();
             System.out.print("Enter your password ");
             String password = s.nextLine();
@@ -87,6 +88,8 @@ public class LoginPage {
                 System.out.println("4. Set Availability for Appointments");
                 System.out.println("5. Accept or Decline Appointment Request");
                 System.out.println("6. View Upcoming Appointments");
+                System.out.println("7. Add Appointment Outcome Record");
+                System.out.println("8. Log Out");
 
                 option = s.nextInt();
                 if (option == 1) {
@@ -94,7 +97,17 @@ public class LoginPage {
                 } else if (option == 2) {
                     logIn.updatePatientDetails();
                 } else if (option == 3) {
-
+                    logIn.displayAvailableSlots();
+                } else if (option == 4) {
+                    logIn.addAvailability();
+                } else if (option == 5) {
+                    logIn.reviewPendingAppointments();
+                } else if (option == 6) {
+                    logIn.viewAcceptedAppointments();
+                } else if (option == 7) {
+                    logIn.updateRecords();
+                } else if (option == 8) {
+                    login = false;
                 }
 
             }
