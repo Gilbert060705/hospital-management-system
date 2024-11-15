@@ -703,10 +703,19 @@ public class Patient {
         for (Appointment x : this.appointmentLists) {
             System.out.println(start + ". \n");
             x.getDetailsForPatient();
+            System.out.println("");
         }
     }
 
     public void reScheduleAppointment() {
+        displayAppointments();
+        int option = -1;
+        Scanner s = new Scanner(System.in);
+        while (option < 1 || option > appointmentLists.size()) {
+            System.out.print("Please pick the appointment that you want to re-schedule : ");
+            option = s.nextInt();
+            s.nextLine();
+        }
 
     }
 
